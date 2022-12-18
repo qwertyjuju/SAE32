@@ -11,9 +11,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.fragment.app.FragmentManager;
-
 import com.example.sae32.databinding.ActivityMainBinding;
 
 import android.view.Menu;
@@ -26,7 +23,6 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-import com.example.sae32.LoggerView;
 import com.example.sae32.logic.AppObject;
 
 
@@ -115,18 +111,6 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.server_page) {
-            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-            navController.navigate(R.id.action_SecondFragment_to_FirstFragment);
-            return true;
-        }
-        if (id ==R.id.client_page){
-            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-            navController.navigate(R.id.action_FirstFragment_to_SecondFragment);
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
