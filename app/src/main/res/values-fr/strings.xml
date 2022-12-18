@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">sae32</string>
+    <string name="server_page">Serveur</string>
+    <string name="first_fragment_label">Premier Fragment</string>
+    <string name="second_fragment_label">Deuxieme Fragment</string>
+    <string name="next">Suivant</string>
+    <string name="previous">Précédent</string>
+    <string name="listening_port">numéro Port</string>
+    <string name="hello_first_fragment">Bonjour premier argument</string>
+    <string name="hello_second_fragment">Bonjour deuxieme argument. Arg: %1$s</string>
+    <string name="client_page">Client</string>
+    <string name="networkint_error1">Interface Réseau non reconnue</string>
+    <string name="network_error1">Port d\'écoute incorrect (non entier)</string>
+</resources>
