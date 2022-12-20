@@ -36,6 +36,12 @@ public class ClientHandler extends Task{
 
     @Override
     protected void onShutdown(){
+        try {
+            socket.close();
+        }catch(IOException e){
+            update(()->{
 
+            });
+        }
     }
 }

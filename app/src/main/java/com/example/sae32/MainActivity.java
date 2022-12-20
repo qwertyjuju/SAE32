@@ -2,8 +2,10 @@ package com.example.sae32;
 
 import android.os.Bundle;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.StrictMode;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -11,22 +13,19 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.fragment.app.FragmentManager;
-
 import com.example.sae32.databinding.ActivityMainBinding;
 
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-import com.example.sae32.LoggerView;
 import com.example.sae32.logic.AppObject;
 
 
@@ -37,16 +36,19 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> interfacesadapter;
     private ArrayAdapter<String> ipAdapter;
     private LoggerView loggerView;
-
     static Logger logger;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         super.onCreate(savedInstanceState);
         logger= Logger.getLogger("netApp");
         AppObject.initClass(this, logger);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         loggerView= new LoggerView(binding.textView, Level.ALL);
+        loggerView.setVisibility(View.INVISIBLE);
         logger.addHandler(loggerView);
         logger.info("Welcome to netApp");
         interfacesadapter =  new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
@@ -74,11 +76,10 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView){
             }
         });
-        binding.loggerswitch.setOnClickListener(new View.OnClickListener() {
+        binding.loggerswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
-            public void onClick(View view) {
-                boolean checked = ((Switch) view).isChecked();
-                if (checked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     MainActivity.this.loggerView.setVisibility(View.VISIBLE);
                 }
                 else{
@@ -115,18 +116,6 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.server_page) {
-            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-            navController.navigate(R.id.action_SecondFragment_to_FirstFragment);
-            return true;
-        }
-        if (id ==R.id.client_page){
-            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-            navController.navigate(R.id.action_FirstFragment_to_SecondFragment);
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 

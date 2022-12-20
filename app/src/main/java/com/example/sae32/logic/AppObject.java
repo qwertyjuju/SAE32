@@ -40,9 +40,11 @@ public class AppObject {
     public static void setUsedIp(String ip){
         if(!ip.equals("None")){
             try{
-            usedIp= InetAddress.getByName(ip);
+                System.out.println(ip);
+                usedIp= InetAddress.getByName(ip);
             }
             catch(UnknownHostException e){
+                System.out.println(e);
                 logger.warning(e.getMessage());
             }
         }

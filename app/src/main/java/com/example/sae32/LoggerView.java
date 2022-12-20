@@ -1,5 +1,6 @@
 package com.example.sae32;
 
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ public class LoggerView extends Handler {
             }
         });
         logview=view;
+        logview.setMovementMethod(new ScrollingMovementMethod());
     }
 
     public void setVisibility(int visibility){
