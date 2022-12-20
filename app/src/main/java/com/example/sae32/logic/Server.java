@@ -15,7 +15,6 @@ public class Server extends AppObject{
             socket = new ServerSocket(port,100, usedIp);
             logger.info("Server setup done");
             logger.info("@IP/port: "+socket.getInetAddress().toString());
-            System.out.println(socket.getInetAddress().getAddress());
             task = new ServerTask(this);
             task.run();
         }catch(IOException e){

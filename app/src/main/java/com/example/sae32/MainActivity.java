@@ -2,8 +2,10 @@ package com.example.sae32;
 
 import android.os.Bundle;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.StrictMode;
 import android.view.View;
 
 import androidx.navigation.NavController;
@@ -17,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import java.util.List;
@@ -33,16 +36,19 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> interfacesadapter;
     private ArrayAdapter<String> ipAdapter;
     private LoggerView loggerView;
-
     static Logger logger;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
         super.onCreate(savedInstanceState);
         logger= Logger.getLogger("netApp");
         AppObject.initClass(this, logger);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         loggerView= new LoggerView(binding.textView, Level.ALL);
+        loggerView.setVisibility(View.INVISIBLE);
         logger.addHandler(loggerView);
         logger.info("Welcome to netApp");
         interfacesadapter =  new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
@@ -70,11 +76,10 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView){
             }
         });
-        binding.loggerswitch.setOnClickListener(new View.OnClickListener() {
+        binding.loggerswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
-            public void onClick(View view) {
-                boolean checked = ((Switch) view).isChecked();
-                if (checked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
                     MainActivity.this.loggerView.setVisibility(View.VISIBLE);
                 }
                 else{
