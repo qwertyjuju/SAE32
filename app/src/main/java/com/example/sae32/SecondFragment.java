@@ -10,9 +10,14 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.sae32.databinding.FragmentSecondBinding;
+import com.example.sae32.logic.Client;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class SecondFragment extends Fragment {
 
+    private Client client;
     private FragmentSecondBinding binding;
 
     @Override
@@ -27,11 +32,29 @@ public class SecondFragment extends Fragment {
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        binding.buttonSecond.setOnClickListener(new View.OnClickListener() {
+        binding.buttonPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(SecondFragment.this)
                         .navigate(R.id.action_SecondFragment_to_MainFragment);
+            }
+        });
+        binding.buttonConnect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try{
+                    InetAddress ip = InetAddress.getByName(SecondFragment.this.binding.editTextIp.getText().toString());
+                    int port = Integer.parseInt(SecondFragment.this.binding.editTextPort.getText().toString());
+                    SecondFragment.this.client = new Client(ip, port);
+                }catch(UnknownHostException | NumberFormatException e){
+                    MainActivity.logger.warning("Client not created: "+ e.getMessage());
+                }
+            }
+        });
+        binding.buttonSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                client.addMessage(SecondFragment.this.binding.editTextMsg.getText().toString());
             }
         });
         super.onViewCreated(view, savedInstanceState);

@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         interfacesadapter =  new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         interfacesadapter.addAll(AppObject.getInterfaces());
         ipAdapter= new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
+        ipAdapter.setNotifyOnChange(true);
         binding.InterfacesSpinner.setAdapter(interfacesadapter);
         binding.IpSpinner.setAdapter(ipAdapter);
         binding.InterfacesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
@@ -71,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         });
         binding.IpSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id){
+                System.out.println("LALALALALALLALALALLALALLALALALLALAA");
                 AppObject.setUsedIp(adapterView.getSelectedItem().toString());
             }
             public void onNothingSelected(AdapterView<?> adapterView){

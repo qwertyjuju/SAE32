@@ -1,4 +1,4 @@
-package com.example.sae32.logic;
+package com.example.sae32.logic.Tasks;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,13 +12,14 @@ public class ClientHandler extends Task{
     private static BufferedReader reader;
     private static BufferedWriter writer;
 
-    ClientHandler(Socket sock){
+    public ClientHandler(Socket sock){
         super();
         socket=sock;
         try {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         }
         catch (IOException e){
+            logger.warning("couldnt create reader on ClientHandler: " +e.getMessage());
         }
     }
 
@@ -27,9 +28,14 @@ public class ClientHandler extends Task{
         while(running) {
             try{
                 buffer = reader.readLine();
+                doOnMainThread(()->{
+                    logger.info(buffer);
+                });
             }
             catch(IOException e){
-
+                doOnMainThread(()->{
+                    logger.warning("error while reading message: "+e.getMessage());
+                });
             }
         }
     }
@@ -39,8 +45,8 @@ public class ClientHandler extends Task{
         try {
             socket.close();
         }catch(IOException e){
-            update(()->{
-
+            doOnMainThread(()->{
+                logger.info("client Handler shutdown");
             });
         }
     }

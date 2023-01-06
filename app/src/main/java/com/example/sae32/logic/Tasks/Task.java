@@ -1,12 +1,14 @@
-package com.example.sae32.logic;
+package com.example.sae32.logic.Tasks;
 
 import android.os.Handler;
 import android.os.Looper;
 
+import com.example.sae32.logic.AppObject;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public abstract class Task extends AppObject{
+public abstract class Task extends AppObject {
     /*
     La classe AsyncTask étant obsolète, j'ai créer une classe "Task" permettant de réaliser
     un programme multi-threads
@@ -26,7 +28,7 @@ public abstract class Task extends AppObject{
     }
 
 
-    public void update(Runnable r){
+    public void doOnMainThread(Runnable r){
         // appelle la fonction passée en paramètre. Le handler permet d'executer
         handler.post(r);
     }

@@ -1,27 +1,17 @@
-package com.example.sae32.logic;
+package com.example.sae32.logic.Tasks;
 
-import android.os.Handler;
-import android.os.Looper;
+import com.example.sae32.logic.Server;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.logging.Level;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import java.net.ServerSocket;
 import java.net.Socket;
 
 import java.io.IOException;
-
-import com.example.sae32.logic.Server;
 
 
 public class ServerTask extends Task{
     private Server server;
     private Boolean run;
 
-    ServerTask(Server serv){
+    public ServerTask(Server serv){
         super();
         server=serv;
     }
@@ -36,12 +26,16 @@ public class ServerTask extends Task{
             }
         }
         catch (IOException e){
-            update(() -> {
+            doOnMainThread(() -> {
                 logger.info("Error setting up Server: "+e.getMessage());
             });
             run =false;
         }
     }
     @Override
-    protected void onShutdown(){}
+    protected void onShutdown(){
+        doOnMainThread(()->{
+
+        });
+    }
 }
