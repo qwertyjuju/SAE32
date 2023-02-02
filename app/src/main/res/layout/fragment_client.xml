@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SecondFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="4dp"
+                android:text="@string/client" />
+
+            <EditText
+                android:id="@+id/editTextClientName"
+                android:layout_width="209dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="10dp"
+                android:ems="10"
+                android:hint="ClientName"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editTextIp"
+                android:layout_width="208dp"
+                android:layout_height="58dp"
+                android:layout_marginTop="16dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/ip_adress"
+                android:inputType="textPersonName"
+                android:textColorHint="#757575" />
+
+            <EditText
+                android:id="@+id/editTextPort"
+                android:layout_width="209dp"
+                android:layout_height="53dp"
+                android:layout_marginTop="16dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/port"
+                android:inputType="textPersonName"
+                android:textColorHint="#757575" />
+
+            <Button
+                android:id="@+id/buttonConnect"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:text="@string/connect" />
+
+            <EditText
+                android:id="@+id/editTextMsg"
+                android:layout_width="209dp"
+                android:layout_height="49dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="36dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/message"
+                android:inputType="textPersonName"
+                android:textColorHint="#757575" />
+
+            <Button
+                android:id="@+id/buttonSend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="36dp"
+                android:text="@string/send" />
+
+            <TextView
+                android:id="@+id/ClientMessagingTextView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/back"
+                android:paddingStart="3dip"
+                android:paddingEnd="3dip" />
+
+            <Button
+                android:id="@+id/buttonPrevious"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/previous" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

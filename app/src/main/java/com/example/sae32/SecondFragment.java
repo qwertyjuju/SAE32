@@ -9,16 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.sae32.databinding.FragmentSecondBinding;
-import com.example.sae32.logic.Client;
+import com.example.sae32.databinding.FragmentClientBinding;
+import com.example.sae32.logic.AppObject;
+import com.example.sae32.logic.Messaging.Messaging;
+import com.example.sae32.logic.Messaging.TextViewMessagingHandler;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class SecondFragment extends Fragment {
-
-    private Client client;
-    private FragmentSecondBinding binding;
+    private FragmentClientBinding binding;
 
     @Override
     public View onCreateView(
@@ -26,7 +26,10 @@ public class SecondFragment extends Fragment {
             Bundle savedInstanceState
     ) {
 
-        binding = FragmentSecondBinding.inflate(inflater, container, false);
+        binding = FragmentClientBinding.inflate(inflater, container, false);
+        TextViewMessagingHandler handler = TextViewMessagingHandler.get("Client", AppObject.clientMessaging);
+        handler.setOutput(binding.ClientMessagingTextView);
+        AppObject.clientMessaging.publishAll();
         return binding.getRoot();
 
     }
@@ -45,7 +48,12 @@ public class SecondFragment extends Fragment {
                 try{
                     InetAddress ip = InetAddress.getByName(SecondFragment.this.binding.editTextIp.getText().toString());
                     int port = Integer.parseInt(SecondFragment.this.binding.editTextPort.getText().toString());
-                    SecondFragment.this.client = new Client(ip, port);
+                    AppObject.clientMessaging.createClient(
+                            ip,
+                            port,
+                            SecondFragment.this.binding.editTextClientName.getText().toString()
+                    );
+                    AppObject.clientMessaging.publishAll();
                 }catch(UnknownHostException | NumberFormatException e){
                     MainActivity.logger.warning("Client not created: "+ e.getMessage());
                 }
@@ -54,7 +62,7 @@ public class SecondFragment extends Fragment {
         binding.buttonSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                client.addMessage(SecondFragment.this.binding.editTextMsg.getText().toString());
+                AppObject.clientMessaging.sendMessage(SecondFragment.this.binding.editTextMsg.getText().toString());
             }
         });
         super.onViewCreated(view, savedInstanceState);

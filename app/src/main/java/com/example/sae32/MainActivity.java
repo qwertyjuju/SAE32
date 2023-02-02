@@ -47,10 +47,9 @@ public class MainActivity extends AppCompatActivity {
         AppObject.initClass(this, logger);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        loggerView= new LoggerView(binding.textView, Level.ALL);
+        loggerView= new LoggerView(binding.textView, Level.ALL, getApplicationContext());
         loggerView.setVisibility(View.INVISIBLE);
         logger.addHandler(loggerView);
-        logger.info("Welcome to netApp");
         interfacesadapter =  new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         interfacesadapter.addAll(AppObject.getInterfaces());
         ipAdapter= new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
@@ -70,14 +69,6 @@ public class MainActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> adapterView){
             }
         });
-        binding.IpSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long id){
-                System.out.println("LALALALALALLALALALLALALLALALALLALAA");
-                AppObject.setUsedIp(adapterView.getSelectedItem().toString());
-            }
-            public void onNothingSelected(AdapterView<?> adapterView){
-            }
-        });
         binding.loggerswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -90,19 +81,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         setSupportActionBar(binding.toolbar);
-        //NavHostFragment navfragment = FragmentManager.findFragmentById((this, R.id.nav_host_fragment_content_main);
-        /*
-        navHostFragment navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        */
     }
 
     @Override
     public void onResume(){
         super.onResume();
         logger.info("Welcome to netApp");
-        logger.info("MainActivity setup finished.");
     }
 
     @Override

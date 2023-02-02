@@ -2,6 +2,9 @@ package com.example.sae32.logic;
 
 import com.example.sae32.MainActivity;
 import com.example.sae32.R;
+import com.example.sae32.logic.Messaging.ClientMessaging;
+import com.example.sae32.logic.Messaging.Messaging;
+import com.example.sae32.logic.Messaging.ServerMessaging;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -15,14 +18,20 @@ import java.util.List;
 import java.util.logging.Logger;
 
 public class AppObject {
+    public static Version VERSION=new Version(0,0,1);
     public static Logger logger;
     private static MainActivity master;
     private static List<String> interfaceList;
-    protected static InetAddress usedIp;
+    public static ClientMessaging clientMessaging;
+    public static ServerMessaging serverMessaging;
+    public static InetAddress localIp;
+    public static byte[] macAddress;
 
     public static void initClass(MainActivity activity, Logger log){
         master = activity;
         logger=log;
+        serverMessaging = new ServerMessaging();
+        clientMessaging = new ClientMessaging();
         setInterfaces();
     }
 
@@ -34,19 +43,6 @@ public class AppObject {
             }
         } catch (SocketException e) {
             e.printStackTrace();
-        }
-    }
-
-    public static void setUsedIp(String ip){
-        System.out.println(ip);
-        if(!ip.equals("None")){
-            try{
-                System.out.println(ip);
-                usedIp= InetAddress.getByName(ip);
-            }
-            catch(UnknownHostException e){
-                logger.warning(e.getMessage());
-            }
         }
     }
 

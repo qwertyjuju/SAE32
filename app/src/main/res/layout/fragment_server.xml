@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FirstFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="28dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:text="@string/server" />
+
+            <TextView
+                android:id="@+id/ServerMessagingTextView"
+                android:layout_width="match_parent"
+                android:layout_height="173dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/back"
+                android:paddingStart="3dip"
+                android:paddingEnd="3dip" />
+
+            <EditText
+                android:id="@+id/ListeningPort"
+                android:layout_width="246dp"
+                android:layout_height="71dp"
+                android:layout_marginTop="0dp"
+                android:autofillHints=""
+                android:ems="10"
+                android:hint="@string/listening_port"
+                android:inputType="textPersonName"
+                android:textColorHint="#757575" />
+
+            <Button
+                android:id="@+id/button_launch_serv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/start_server" />
+
+            <Button
+                android:id="@+id/button_first"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/previous" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

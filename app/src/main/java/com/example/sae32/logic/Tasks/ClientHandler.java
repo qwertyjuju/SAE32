@@ -1,42 +1,69 @@
 package com.example.sae32.logic.Tasks;
 
+
+import com.example.sae32.logic.Exceptions.TaskException;
+import com.example.sae32.logic.Messaging.Message;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 public class ClientHandler extends Task{
-    private static String buffer;
-    private static Socket socket;
-    private static BufferedReader reader;
-    private static BufferedWriter writer;
+    final private ServerTask server;
+    final private  BufferedReader reader;
+    final private  BufferedWriter writer;
+    final private Socket socket;
 
-    public ClientHandler(Socket sock){
+    public ClientHandler(Socket sock, ServerTask server)throws TaskException{
         super();
+        this.server=server;
         socket=sock;
         try {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        }
-        catch (IOException e){
-            logger.warning("couldnt create reader on ClientHandler: " +e.getMessage());
+            writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            server.addClientHandler(this);
+        }catch(IOException e){
+            throw new TaskException("couldnt create ClientHandler: "+e.getMessage());
         }
     }
 
     @Override
     protected void doInBackground(){
-        while(running) {
-            try{
-                buffer = reader.readLine();
-                doOnMainThread(()->{
-                    logger.info(buffer);
-                });
+        try {
+            final Message initmsg =serverMessaging.getInitMessage(reader.readLine());
+            send(serverMessaging.createInitMessageResponse(initmsg));
+            while (running) {
+                String buffer = reader.readLine();
+                if(buffer!=null){
+                    final Message msg = serverMessaging.getMsgMessage(buffer);
+                    if (msg.isValid()) {
+                        doOnMainThreadAndWait(() -> {
+                            serverMessaging.publish(msg);
+                        });
+                    }
+                }else if(socket.isConnected()){
+                    kill();
+                }
             }
-            catch(IOException e){
-                doOnMainThread(()->{
-                    logger.warning("error while reading message: "+e.getMessage());
-                });
-            }
+        }
+        catch(IOException e){
+            doOnMainThreadAndWait(()->{
+                logger.warning("error while reading message: "+e.getMessage());
+            });
+        }
+    }
+
+    public void send(Message msg){
+        try{
+            writer.write(msg.toString()+"\n");
+            writer.flush();
+        }catch(IOException e){
+            doOnMainThreadAndWait(()-> {
+                logger.warning("client handler couldn't send message: " + e.getMessage());
+            });
         }
     }
 
@@ -44,8 +71,9 @@ public class ClientHandler extends Task{
     protected void onShutdown(){
         try {
             socket.close();
+            server.removeClientHandler(this);
         }catch(IOException e){
-            doOnMainThread(()->{
+            doOnMainThreadAndWait(()->{
                 logger.info("client Handler shutdown");
             });
         }

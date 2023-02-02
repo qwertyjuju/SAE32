@@ -10,21 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
-import com.example.sae32.databinding.FragmentFirstBinding;
+import com.example.sae32.databinding.FragmentServerBinding;
 import com.example.sae32.logic.AppObject;
-import com.example.sae32.logic.Server;
+import com.example.sae32.logic.Messaging.Messaging;
+import com.example.sae32.logic.Messaging.TextViewMessagingHandler;
 
 public class FirstFragment extends Fragment {
-    private Server server;
-    private FragmentFirstBinding binding;
-
+    private FragmentServerBinding binding;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState
     ) {
-        binding = FragmentFirstBinding.inflate(inflater, container, false);
+        binding = FragmentServerBinding.inflate(inflater, container, false);
+        TextViewMessagingHandler handler;
+        handler = TextViewMessagingHandler.get("Server",AppObject.serverMessaging);
+        handler.setOutput(binding.ServerMessagingTextView);
+        AppObject.serverMessaging.publishAll();
         return binding.getRoot();
     }
 
@@ -41,7 +44,9 @@ public class FirstFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    FirstFragment.this.server = new Server(Integer.parseInt(binding.ListeningPort.getText().toString()));
+                    AppObject.serverMessaging.createServer(
+                            Integer.parseInt(binding.ListeningPort.getText().toString())
+                    );
                 }
                 catch(NumberFormatException e){
                     AppObject.logger.warning((String)getText(R.string.network_error1));

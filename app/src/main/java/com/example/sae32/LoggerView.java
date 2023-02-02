@@ -1,7 +1,9 @@
 package com.example.sae32;
 
+import android.content.Context;
 import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,9 +16,11 @@ import java.util.logging.LogRecord;
 
 public class LoggerView extends Handler {
     final private TextView logview;
+    final private Context context;
 
-    public LoggerView(TextView view, Level level){
+    public LoggerView(TextView view, Level level, Context appcontext){
         super();
+        context= appcontext;
         setLevel(level);
         setFormatter(new Formatter() {
             final private SimpleDateFormat dateformatter= new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS", Locale.FRANCE);
@@ -39,6 +43,11 @@ public class LoggerView extends Handler {
     @Override
     public synchronized void publish(LogRecord record){
         logview.append(getFormatter().format(record));
+        String msg;
+        if ((msg = record.getMessage())!=null){
+            Toast toast = Toast.makeText(context, msg, Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     @Override
