@@ -5,7 +5,7 @@ import com.example.sae32.logic.Constants;
 import com.example.sae32.logic.Exceptions.TaskException;
 import com.example.sae32.logic.Messaging.Message.TCPMessage;
 import com.example.sae32.logic.Messaging.Message.UDPMessage;
-import com.example.sae32.logic.Messaging.MessageType;
+import com.example.sae32.logic.Messaging.Message.MessageType;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

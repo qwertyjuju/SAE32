@@ -2,7 +2,6 @@ package com.example.sae32;
 
 import android.os.Bundle;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.StrictMode;
@@ -20,14 +19,13 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
 import com.example.sae32.logic.AppObject;
-import com.example.sae32.logic.utils.ConnectionType;
+import com.example.sae32.logic.LoggerView;
 
 
 public class MainActivity extends AppCompatActivity {

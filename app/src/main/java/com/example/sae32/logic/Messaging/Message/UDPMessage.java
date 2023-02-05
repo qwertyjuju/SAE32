@@ -2,7 +2,6 @@ package com.example.sae32.logic.Messaging.Message;
 
 import com.example.sae32.logic.AppObject;
 import com.example.sae32.logic.Exceptions.MessageException;
-import com.example.sae32.logic.Messaging.MessageType;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

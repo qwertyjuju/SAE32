@@ -4,6 +4,7 @@ package com.example.sae32.logic.Messaging;
 import com.example.sae32.logic.AppObject;
 import com.example.sae32.logic.Exceptions.MessageException;
 import com.example.sae32.logic.Messaging.Message.MessageInt;
+import com.example.sae32.logic.Messaging.Message.MessageType;
 import com.example.sae32.logic.Messaging.Message.TCPMessage;
 import com.example.sae32.logic.Messaging.Message.UDPMessage;
 import com.example.sae32.logic.utils.RotatingList;

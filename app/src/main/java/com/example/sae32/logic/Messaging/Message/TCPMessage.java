@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import com.example.sae32.logic.AppObject;
 import com.example.sae32.logic.Exceptions.MessageException;
-import com.example.sae32.logic.Messaging.MessageType;
 
 import org.json.JSONException;
 import org.json.JSONObject;

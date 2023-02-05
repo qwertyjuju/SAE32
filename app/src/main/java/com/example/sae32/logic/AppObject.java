@@ -1,18 +1,13 @@
 package com.example.sae32.logic;
 
-import com.example.sae32.LoggerView;
 import com.example.sae32.MainActivity;
 import com.example.sae32.R;
 import com.example.sae32.logic.Messaging.ClientMessaging;
-import com.example.sae32.logic.Messaging.Messaging;
 import com.example.sae32.logic.Messaging.ServerMessaging;
 
-import java.net.Inet4Address;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;

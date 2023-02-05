@@ -7,4 +7,4 @@ application android en Java, dans le cadre de ma SAE32 (BUT RT Roanne). Le but d
 - un système de messagerie avec l'envoie soit d'un objet sérialisé, soit d'un json.
 
 ## structure du programme
-![](img/sae32_messaging_com_TCP.png)
+![](img/sae32_struct.png)

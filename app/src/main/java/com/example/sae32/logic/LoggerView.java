@@ -1,4 +1,4 @@
-package com.example.sae32;
+package com.example.sae32.logic;
 
 import android.content.Context;
 import android.text.method.ScrollingMovementMethod;
