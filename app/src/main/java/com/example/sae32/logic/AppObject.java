@@ -20,7 +20,7 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 public class AppObject {
-    public static Version VERSION=new Version(0,0,1);
+    public static Version VERSION=new Version(0,0,2);
     public static Logger logger;
     private static MainActivity master;
     private static List<String> interfaceList;
