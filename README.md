@@ -34,3 +34,22 @@ Pour ce projet, j'ai créer 3 tâches:
 - ClientTask: tâche client. Permet de gérer un client voulant se connecter à un serveur.
 - ServerTask: tâche Serveur: permet de gérer un serveur.
 - ClientHandle: permet de gérer un client se connectant au serveur. à chaque connexion d'un nouveau client sur un serveur, un ClientHandler est créer.
+
+### Messagerie
+Pour la communication, j'ai creer 2 classes, 1 interface et 1 énumération:
+- MessageInt: Interface pour tous types de messages. Les classes implémentant cette interface doivent implémenter ces méthodes:
+```Java
+String getPublishableString() throws MessageException;
+MessageType getType();
+void setMsg(String msg);
+```
+- TCPMessage: objet message TCP. La méthode "toString" est utilisé pour récupérer un json en format Sting, afin de l'envoyer à un socket TCP.
+- UDPMessage: objet message UDP. La méthode "getBuffer" permet de récuperer le l'objet en octet afin de l'envoyer sur un socket UDP
+
+Initialisation d'une messagerie TCP:
+
+![](img/sae32_messaging_com_TCP.png)
+
+Initialisation d'une messagerie UDP:
+
+![](img/sae32_messaging_com_UDP.drawio.png)
