@@ -30,10 +30,10 @@ public class ServerTask extends Task{
     private final String welcomeMessage;
 
 
-    public ServerTask(int port, ConnectionType servtype) throws TaskException {
+    public ServerTask(int port, ConnectionType servtype, String serverName) throws TaskException {
         super();
         type = servtype;
-        name="Server";
+        name=serverName;
         welcomeMessage=String.format("Welcome on %s", name);
         if(type==ConnectionType.UDP){
             runnable =new UDPServerRunnable(port);
@@ -90,7 +90,6 @@ public class ServerTask extends Task{
                 Socket clisocket;
                 try {
                     clisocket = socket.accept();
-                    System.out.println("connected client");
                     createClientHandler(clisocket);
                 }
                 catch (IOException e) {
@@ -181,7 +180,6 @@ public class ServerTask extends Task{
             DatagramPacket packet= new DatagramPacket(buffer, buffer.length);
             try {
                 socket.receive(packet);
-                System.out.println("received");
                 return serverMessaging.getUDPMessageFromPacket(packet);
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
@@ -196,7 +194,6 @@ public class ServerTask extends Task{
             }else{
                 try {
                     handler = new ClientHandler(msg.getSenderID(), this);
-                    System.out.println("beuteu2");
                     handler.addMessage(msg);
                     handler.run();
                 }catch(TaskException e){

@@ -32,12 +32,11 @@ public class AppObject {
             master = activity;
             logger= Logger.getLogger("netApp");
             logger.addHandler(master.loggerView);
-            System.out.println(activity);
             serverMessaging = new ServerMessaging();
             clientMessaging = new ClientMessaging();
-
             _init=true;
         }
+        setInterfaces();
     }
 
     public static void setInterfaces(){

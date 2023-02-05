@@ -51,7 +51,6 @@ public class ClientHandler extends Task{
     protected void doInBackground(){runnable.run();}
     @Override
     protected void onShutdown(){
-        System.out.println("kill");
         runnable.shutdown();
     }
 
@@ -95,19 +94,16 @@ public class ClientHandler extends Task{
                     send(serverMessaging.createTCPMessage(MessageType.ACK, server.getName(), server.getWelcomeMessage()));
                 }
                 while (running) {
-                    System.out.println("handler loop");
                     String buffer = reader.readLine();
                     if(buffer!=null){
                         final TCPMessage msg = serverMessaging.getTCPMessageFromStr(buffer);
                         if (msg.isValid()) {
                             server.sendToAll(msg);
                             doOnMainThreadAndWait(() -> {
-                                System.out.println(msg);
                                 serverMessaging.publish(msg);
                             });
                         }
                     }else {
-                        System.out.println("other");
                         kill();
                     }
                 }
@@ -132,7 +128,6 @@ public class ClientHandler extends Task{
 
         public synchronized void send(TCPMessage msg) {
             try{
-                System.out.println(msg.toString());
                 writer.write(msg.toString());
                 writer.newLine();
                 writer.flush();
@@ -188,7 +183,6 @@ public class ClientHandler extends Task{
                 try {
                     UDPMessage msg = messageQueue.poll(Constants.UDP_CLIENT_HANDLER_TIMEOUT, TimeUnit.SECONDS);
                     if(msg!=null){
-                        System.out.println(msg);
                         if(msg.getType()==MessageType.MSG){
                             server.sendToAll(msg);
                         }

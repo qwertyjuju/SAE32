@@ -20,4 +20,6 @@
     <string name="TCPMessage">Message</string>
     <string name="send">Send</string>
     <string name="connect">Connect</string>
+    <string name="ServerName">Server name</string>
+    <string name="ClientName">Client name</string>
 </resources>

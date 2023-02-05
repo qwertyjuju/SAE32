@@ -106,17 +106,13 @@ public class ClientTask extends Task{
                 while(running){
                     try {
                         TCPMessage msg = clientMessaging.getTCPMessageFromStr(reader.readLine());
-                        System.out.println(msg);
                         if (msg.isValid()) {
-                            System.out.println("valid");
                             doOnMainThreadAndWait(() -> {
                                 clientMessaging.publish(msg);
                             });
                             if(msg.getType()==MessageType.CLOSING){
                                 kill();
                             }
-                        }else {
-                            System.out.println("BEUTEU DE OUF");
                         }
                     }catch(IOException e){
                         doOnMainThreadAndWait(()-> {
@@ -137,8 +133,6 @@ public class ClientTask extends Task{
 
         private void send(TCPMessage msg){
             try{
-                System.out.println("client sending");
-                System.out.println(msg.toString());
                 writer.write(msg.toString());
                 writer.newLine();
                 writer.flush();
@@ -209,7 +203,6 @@ public class ClientTask extends Task{
             UDPMessage msg = receive();
             if(msg!=null){
                 if(msg.getType()==MessageType.CLOSING){
-                    System.out.println("test1");
                     doOnMainThreadAndWait(()->{
                         clientMessaging.publish(msg);
                     });

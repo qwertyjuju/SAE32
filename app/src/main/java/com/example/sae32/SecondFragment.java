@@ -18,6 +18,7 @@ import com.example.sae32.logic.utils.ConnectionType;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+/* Fragment Client*/
 public class SecondFragment extends Fragment {
     private FragmentClientBinding binding;
 
@@ -46,17 +47,22 @@ public class SecondFragment extends Fragment {
         binding.buttonConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
-                    InetAddress ip = InetAddress.getByName(SecondFragment.this.binding.editTextIp.getText().toString());
-                    int port = Integer.parseInt(SecondFragment.this.binding.editTextPort.getText().toString());
-                    AppObject.clientMessaging.createClient(
-                            ip,
-                            port,
-                            SecondFragment.this.binding.editTextClientName.getText().toString(),
-                            ConnectionType.valueOf(SecondFragment.this.binding.buttonClientType.getText().toString())
-                    );
-                }catch(UnknownHostException | NumberFormatException e){
-                    MainActivity.logger.warning("Client not created: "+ e.getMessage());
+                String Clientname= binding.editTextClientName.getText().toString();
+                if(!Clientname.equals("")) {
+                    try {
+                        InetAddress ip = InetAddress.getByName(SecondFragment.this.binding.editTextIp.getText().toString());
+                        int port = Integer.parseInt(SecondFragment.this.binding.editTextPort.getText().toString());
+                        AppObject.clientMessaging.createClient(
+                                ip,
+                                port,
+                                SecondFragment.this.binding.editTextClientName.getText().toString(),
+                                ConnectionType.valueOf(SecondFragment.this.binding.buttonClientType.getText().toString())
+                        );
+                    } catch (UnknownHostException | NumberFormatException e) {
+                        AppObject.logger.warning("Client not created: " + e.getMessage());
+                    }
+                }else{
+                    AppObject.logger.warning("Please enter a clientname");
                 }
             }
         });

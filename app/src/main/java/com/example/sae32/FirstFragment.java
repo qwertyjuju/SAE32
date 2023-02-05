@@ -16,6 +16,8 @@ import com.example.sae32.logic.Messaging.Messaging;
 import com.example.sae32.logic.Messaging.TextViewMessagingHandler;
 import com.example.sae32.logic.utils.ConnectionType;
 
+/* Fragment Serveur */
+
 public class FirstFragment extends Fragment {
     private FragmentServerBinding binding;
 
@@ -45,10 +47,16 @@ public class FirstFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-                    AppObject.serverMessaging.createServer(
-                            Integer.parseInt(binding.ListeningPort.getText().toString()),
-                            ConnectionType.valueOf(binding.buttonServerType.getText().toString())
-                    );
+                    String servname = binding.editTextServerName.getText().toString();
+                    if(!servname.equals("")) {
+                        AppObject.serverMessaging.createServer(
+                                Integer.parseInt(binding.ListeningPort.getText().toString()),
+                                ConnectionType.valueOf(binding.buttonServerType.getText().toString()),
+                                servname
+                                );
+                    }else{
+                        AppObject.logger.warning("Please enter a Server name");
+                    }
                 }
                 catch(NumberFormatException e){
                     AppObject.logger.warning((String)getText(R.string.network_error1));

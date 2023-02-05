@@ -37,6 +37,14 @@
                 android:scrollbars="vertical" />
 
             <EditText
+                android:id="@+id/editTextServerName"
+                android:layout_width="246dp"
+                android:layout_height="71dp"
+                android:ems="10"
+                android:hint="@string/ServerName"
+                android:inputType="textPersonName" />
+
+            <EditText
                 android:id="@+id/ListeningPort"
                 android:layout_width="246dp"
                 android:layout_height="71dp"

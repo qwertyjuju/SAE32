@@ -13,6 +13,7 @@ import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.util.UUID;
 
+/* Classe permettant de définir un omessage UDP.*/
 public class UDPMessage implements Serializable, MessageInt {
     private String version;
     private MessageType type;

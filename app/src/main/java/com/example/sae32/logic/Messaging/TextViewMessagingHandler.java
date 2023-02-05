@@ -18,7 +18,6 @@ public class TextViewMessagingHandler extends MessagingHandler<TextView>{
         out = textview;
     }
     public void publish(String msg){
-        System.out.println(msg);
         if(out!=null) {
             out.append(msg);
         }

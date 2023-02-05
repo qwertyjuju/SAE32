@@ -9,12 +9,12 @@ public class ServerMessaging extends Messaging{
     private ServerTask server=null;
     public ServerMessaging(){super();}
 
-    public ServerTask createServer(int port, ConnectionType coType) {
+    public ServerTask createServer(int port, ConnectionType coType, String servname) {
         if (server != null) {
             server.kill();
         }
         try {
-            server = new ServerTask(port, coType);
+            server = new ServerTask(port, coType, servname);
             server.run();
             return server;
         } catch (TaskException e) {

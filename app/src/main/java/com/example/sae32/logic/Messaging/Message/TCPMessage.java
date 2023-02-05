@@ -7,7 +7,8 @@ import com.example.sae32.logic.Exceptions.MessageException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+/* Classe permettant de définir un message TCP. La méthode tostring permettra de récuperer le json
+* en format string afin de l'envoyer sur un socket.*/
 public class TCPMessage implements MessageInt {
     private String version;
     private String sender;

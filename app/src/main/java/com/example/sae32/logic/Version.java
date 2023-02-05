@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*Classe permettant de définir une version d'application*/
 public class Version {
     private int major;
     private int middle;
