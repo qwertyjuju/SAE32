@@ -35,7 +35,7 @@ public class AppObject {
             System.out.println(activity);
             serverMessaging = new ServerMessaging();
             clientMessaging = new ClientMessaging();
-            setInterfaces();
+
             _init=true;
         }
     }
