@@ -43,6 +43,15 @@ String getPublishableString() throws MessageException;
 MessageType getType();
 void setMsg(String msg);
 ```
+- MessageType: énumeration permettant de définir le type de message:
+    - INIT: message d'initialisation.
+    - CLOSING: message de fermeture de messagerie.
+    - ACK: accusé de réception d'un message INIT. La communication peut commencé. Le message ACK est envoyé par le serveur avce le message d'acceuil du serveur.
+```Java
+public enum MessageType {
+    INIT, ALERT, MSG, ACK, CLOSING
+}
+```
 - TCPMessage: objet message TCP. La méthode "toString" est utilisé pour récupérer un json en format Sting, afin de l'envoyer à un socket TCP.
 - UDPMessage: objet message UDP. La méthode "getBuffer" permet de récuperer le l'objet en octet afin de l'envoyer sur un socket UDP
 
@@ -53,3 +62,6 @@ Initialisation d'une messagerie TCP:
 Initialisation d'une messagerie UDP:
 
 ![](img/sae32_messaging_com_UDP.drawio.png)
+
+### MessagingHandler
+Un MessagingHandler est une classe abstraite pemettant de publier un message sur une interface graphique. Le "TextViewMessagingHandler" permettra par exemple de publier les messages sur un objet TextView.
