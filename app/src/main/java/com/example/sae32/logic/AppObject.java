@@ -1,5 +1,6 @@
 package com.example.sae32.logic;
 
+import com.example.sae32.LoggerView;
 import com.example.sae32.MainActivity;
 import com.example.sae32.R;
 import com.example.sae32.logic.Messaging.ClientMessaging;
@@ -15,6 +16,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 public class AppObject {
@@ -24,15 +26,23 @@ public class AppObject {
     private static List<String> interfaceList;
     public static ClientMessaging clientMessaging;
     public static ServerMessaging serverMessaging;
-    public static InetAddress localIp;
-    public static byte[] macAddress;
+    private static boolean _init=false;
+    protected UUID _id;
 
-    public static void initClass(MainActivity activity, Logger log){
-        master = activity;
-        logger=log;
-        serverMessaging = new ServerMessaging();
-        clientMessaging = new ClientMessaging();
-        setInterfaces();
+    public AppObject(){
+        _id=UUID.randomUUID();
+    }
+    public static void initClass(MainActivity activity){
+        if(!_init) {
+            master = activity;
+            logger= Logger.getLogger("netApp");
+            logger.addHandler(master.loggerView);
+            System.out.println(activity);
+            serverMessaging = new ServerMessaging();
+            clientMessaging = new ClientMessaging();
+            setInterfaces();
+            _init=true;
+        }
     }
 
     public static void setInterfaces(){
@@ -61,6 +71,10 @@ public class AppObject {
     public static List<String> getInterfaces(){
         return interfaceList;
     }
-
-
+    public static Logger getLogger(){
+        return logger;
+    }
+    public UUID getId(){
+        return _id;
+    }
 }

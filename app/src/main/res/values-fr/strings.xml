@@ -15,7 +15,7 @@
     <string name="start_server">Lancer Serveur</string>
     <string name="ip_adress">Adresse Ip</string>
     <string name="port">Port</string>
-    <string name="message">Message</string>
+    <string name="TCPMessage">Message</string>
     <string name="send">Envoyer</string>
     <string name="connect">Connecter</string>
 </resources>

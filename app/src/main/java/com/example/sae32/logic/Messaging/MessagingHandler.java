@@ -1,7 +1,9 @@
 package com.example.sae32.logic.Messaging;
 
 import java.util.Hashtable;
-
+/* Un Messaging Handler permet de faire l'interface entre les messages reçu et les afficheurs pour
+ces messages. Par exemple pour afficher les messages sur un TextView, on créer un TextViewMessaging Handler
+ */
 public abstract class MessagingHandler<T> {
     String name;
     Messaging messaging;
@@ -14,9 +16,8 @@ public abstract class MessagingHandler<T> {
         handlers.put(name, this);
         messaging.addHandler(this);
     }
-    public void setOutput(T output){
-        out=output;
-    }
+
+    abstract void setOutput(T output);
     abstract void publish(String msg);
 
 

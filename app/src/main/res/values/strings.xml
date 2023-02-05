@@ -17,7 +17,7 @@
     <string name="start_server">Start Server</string>
     <string name="ip_adress">Ip Adress</string>
     <string name="port">Port</string>
-    <string name="message">Message</string>
+    <string name="TCPMessage">Message</string>
     <string name="send">Send</string>
     <string name="connect">Connect</string>
 </resources>

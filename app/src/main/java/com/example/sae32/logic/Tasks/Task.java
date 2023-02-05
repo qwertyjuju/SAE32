@@ -15,11 +15,11 @@ public abstract class Task extends AppObject {
     un programme multi-threads
     */
     protected ExecutorService executor;
-    protected Lock locker;
     protected Handler handler;
     private SynchronizedRunnable syncRun;
     protected boolean running;
     protected Task(){
+        super();
         running =false;
     }
 
@@ -41,8 +41,10 @@ public abstract class Task extends AppObject {
         handler.post(syncRun);
         synchronized(syncRun){
             try {
-                syncRun.wait();
-                syncRun=null;
+                while(!syncRun.getDone()) {
+                    syncRun.wait();
+                }
+                syncRun = null;
             } catch (InterruptedException ignore) {}
         }
     }

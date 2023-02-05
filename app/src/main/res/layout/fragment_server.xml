@@ -31,8 +31,10 @@
                 android:layout_height="173dp"
                 android:layout_marginTop="4dp"
                 android:background="@drawable/back"
+                android:gravity="bottom"
                 android:paddingStart="3dip"
-                android:paddingEnd="3dip" />
+                android:paddingEnd="3dip"
+                android:scrollbars="vertical" />
 
             <EditText
                 android:id="@+id/ListeningPort"
@@ -44,6 +46,14 @@
                 android:hint="@string/listening_port"
                 android:inputType="textPersonName"
                 android:textColorHint="#757575" />
+
+            <ToggleButton
+                android:id="@+id/buttonServerType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ToggleButton"
+                android:textOff="TCP"
+                android:textOn="UDP" />
 
             <Button
                 android:id="@+id/button_launch_serv"

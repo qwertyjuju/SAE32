@@ -13,6 +13,7 @@ import com.example.sae32.databinding.FragmentClientBinding;
 import com.example.sae32.logic.AppObject;
 import com.example.sae32.logic.Messaging.Messaging;
 import com.example.sae32.logic.Messaging.TextViewMessagingHandler;
+import com.example.sae32.logic.utils.ConnectionType;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -51,9 +52,9 @@ public class SecondFragment extends Fragment {
                     AppObject.clientMessaging.createClient(
                             ip,
                             port,
-                            SecondFragment.this.binding.editTextClientName.getText().toString()
+                            SecondFragment.this.binding.editTextClientName.getText().toString(),
+                            ConnectionType.valueOf(SecondFragment.this.binding.buttonClientType.getText().toString())
                     );
-                    AppObject.clientMessaging.publishAll();
                 }catch(UnknownHostException | NumberFormatException e){
                     MainActivity.logger.warning("Client not created: "+ e.getMessage());
                 }

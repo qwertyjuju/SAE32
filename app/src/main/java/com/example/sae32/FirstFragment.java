@@ -14,6 +14,7 @@ import com.example.sae32.databinding.FragmentServerBinding;
 import com.example.sae32.logic.AppObject;
 import com.example.sae32.logic.Messaging.Messaging;
 import com.example.sae32.logic.Messaging.TextViewMessagingHandler;
+import com.example.sae32.logic.utils.ConnectionType;
 
 public class FirstFragment extends Fragment {
     private FragmentServerBinding binding;
@@ -45,7 +46,8 @@ public class FirstFragment extends Fragment {
             public void onClick(View view) {
                 try {
                     AppObject.serverMessaging.createServer(
-                            Integer.parseInt(binding.ListeningPort.getText().toString())
+                            Integer.parseInt(binding.ListeningPort.getText().toString()),
+                            ConnectionType.valueOf(binding.buttonServerType.getText().toString())
                     );
                 }
                 catch(NumberFormatException e){

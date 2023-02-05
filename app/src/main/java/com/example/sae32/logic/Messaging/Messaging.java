@@ -3,19 +3,25 @@ package com.example.sae32.logic.Messaging;
 
 import com.example.sae32.logic.AppObject;
 import com.example.sae32.logic.Exceptions.MessageException;
-import com.example.sae32.logic.Exceptions.MessagingException;
+import com.example.sae32.logic.Messaging.Message.MessageInt;
+import com.example.sae32.logic.Messaging.Message.TCPMessage;
+import com.example.sae32.logic.Messaging.Message.UDPMessage;
 import com.example.sae32.logic.utils.RotatingList;
 
+import java.io.IOException;
+import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public  class Messaging extends AppObject{
-    private RotatingList<Message> messages;
-    private List<MessagingHandler> handlers;
+    private RotatingList<MessageInt> messages;
+    private List<MessagingHandler<?>> handlers;
 
     public Messaging(){
+        super();
         messages = new RotatingList<>(250);
-        handlers = new ArrayList<MessagingHandler>();
+        handlers = new ArrayList<MessagingHandler<?>>();
     }
 
     protected void addHandler(MessagingHandler handler){
@@ -25,22 +31,36 @@ public  class Messaging extends AppObject{
     public void publishAll(){
         try {
             for (MessagingHandler handler : handlers) {
-                for (Message message:messages) {
-                    System.out.println(messages);
+                for (MessageInt message : messages) {
                     handler.publish(message.getPublishableString()+"\n");
                 }
             }
-        } catch (MessageException e) {
-            e.printStackTrace();
-        }
+        } catch (MessageException ignore) {}
     }
 
-
-    public Message getMsgMessage(String str){
-        return new Message(str, MessageType.MSG);
+    public TCPMessage getTCPMessageFromStr(String str){
+        return new TCPMessage(str);
     }
-
-    public void publish(Message msg){
+    public UDPMessage getUDPMessageFromPacket(DatagramPacket packet) throws IOException, ClassNotFoundException {
+        return UDPMessage.deSerialize(packet);
+    }
+    public TCPMessage createTCPMessage(MessageType msgt, String sender){
+        return new TCPMessage(msgt, sender);
+    }
+    public UDPMessage createUDPMessage(MessageType msgt, UUID senderid, String sender){
+        return new UDPMessage(msgt,senderid, sender);
+    }
+    public TCPMessage createTCPMessage(MessageType msgt, String sender, String msg){
+        TCPMessage tcpm = new TCPMessage(msgt, sender);
+        tcpm.setMsg(msg);
+        return tcpm;
+    }
+    public UDPMessage createUDPMessage(MessageType msgt,UUID senderid, String sender, String msg){
+        UDPMessage udpm=  new UDPMessage(msgt, senderid, sender);
+        udpm.setMsg(msg);
+        return udpm;
+    }
+    public void publish(MessageInt msg){
         try {
             String msgstr = msg.getPublishableString();
             messages.add(msg);
@@ -49,4 +69,5 @@ public  class Messaging extends AppObject{
             }
         }catch(MessageException ignore){}
     }
+
 }

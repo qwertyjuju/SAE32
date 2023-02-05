@@ -15,12 +15,11 @@ import java.util.logging.LogRecord;
 
 
 public class LoggerView extends Handler {
-    final private TextView logview;
-    final private Context context;
+    private TextView logview;
+    private Context context;
 
-    public LoggerView(TextView view, Level level, Context appcontext){
+    public LoggerView(Level level){
         super();
-        context= appcontext;
         setLevel(level);
         setFormatter(new Formatter() {
             final private SimpleDateFormat dateformatter= new SimpleDateFormat("dd/MM/yyyy hh:mm:ss.SSS", Locale.FRANCE);
@@ -33,8 +32,14 @@ public class LoggerView extends Handler {
                 return builder.toString();
             }
         });
-        logview=view;
+
+    }
+    public void setView(TextView view){
+        logview= view;
         logview.setMovementMethod(new ScrollingMovementMethod());
+    }
+    public void setContext(Context appcontext){
+        context= appcontext;
     }
 
     public void setVisibility(int visibility){

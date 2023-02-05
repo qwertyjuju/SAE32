@@ -27,6 +27,7 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 
 import com.example.sae32.logic.AppObject;
+import com.example.sae32.logic.utils.ConnectionType;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -35,21 +36,22 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ArrayAdapter<String> interfacesadapter;
     private ArrayAdapter<String> ipAdapter;
-    private LoggerView loggerView;
+    public LoggerView loggerView= new LoggerView(Level.ALL);
     static Logger logger;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         super.onCreate(savedInstanceState);
-        logger= Logger.getLogger("netApp");
-        AppObject.initClass(this, logger);
+        AppObject.initClass(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+        logger=AppObject.getLogger();
+        loggerView.setView(binding.textView);
+        loggerView.setContext(getApplicationContext());
         setContentView(binding.getRoot());
-        loggerView= new LoggerView(binding.textView, Level.ALL, getApplicationContext());
         loggerView.setVisibility(View.INVISIBLE);
-        logger.addHandler(loggerView);
         interfacesadapter =  new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
         interfacesadapter.addAll(AppObject.getInterfaces());
         ipAdapter= new ArrayAdapter<String>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item);
@@ -80,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        setSupportActionBar(binding.toolbar);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.sae32.logic.Messaging;
 
+import android.text.method.ScrollingMovementMethod;
 import android.widget.TextView;
 
 import com.example.sae32.logic.Exceptions.HandlerException;
@@ -21,6 +22,11 @@ public class TextViewMessagingHandler extends MessagingHandler<TextView>{
         if(out!=null) {
             out.append(msg);
         }
+    }
+
+    public void setOutput(TextView output){
+        out=output;
+        out.setMovementMethod(new ScrollingMovementMethod());
     }
 
     public static TextViewMessagingHandler get(String name, Messaging messaging, TextView textview) {
